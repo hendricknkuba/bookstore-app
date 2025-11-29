@@ -10,7 +10,11 @@ const authoresRouter = require('./routes/authors');
 const booksRouter = require('./routes/books');
 
 app.use('/api/authors', authoresRouter);
-app.use('api/books', booksRouter);
+app.use('/api/books', booksRouter);
+
+app.get("/test", (req, res) => {
+  res.json({ message: "OK" });
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
