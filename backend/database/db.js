@@ -29,7 +29,17 @@ db.serialize(() => {
             FOREIGN KEY (author_id) REFERENCES authors(author_id)
         )
     `
-    )
+    );
+
+    db.run(
+    `
+        CREATE TABLE IF NOT EXISTS users (
+            user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT UNIQUE NOT NULL,
+            password_hash TEXT NOT NULL
+        )
+    `
+    );
 });
 
 module.exports = db;
