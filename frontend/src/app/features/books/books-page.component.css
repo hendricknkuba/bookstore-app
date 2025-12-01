@@ -1,0 +1,104 @@
+.page-container {
+  padding: 24px;
+  color: white;
+  font-family: Inter, sans-serif;
+}
+
+.title {
+  font-size: 1.7rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.error-box {
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.35);
+  color: #fca5a5;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.add-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(148,163,184,0.25);
+  background: rgba(30,41,59,0.6);
+  color: white;
+  min-width: 180px;
+  flex: 1;
+}
+
+.file {
+  color: #94a3b8;
+}
+
+.add-btn {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.books-list {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.book-card {
+  background: rgba(30,41,59,0.55);
+  border: 1px solid rgba(148,163,184,0.25);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.placeholder {
+  background: rgba(148,163,184,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+}
+
+.info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+.info p {
+  margin: 4px 0 0 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+.loading {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+.no-books {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+.no-books span {
+  color: white;
+  font-weight: 600;
+}

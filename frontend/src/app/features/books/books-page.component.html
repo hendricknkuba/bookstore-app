@@ -1,0 +1,63 @@
+<div class="page-container">
+
+  <h1 class="title">Books</h1>
+
+  @if (error()) {
+    <div class="error-box">{{ error() }}</div>
+  }
+
+  @if (loading()) {
+    <p class="loading">Loading...</p>
+  } @else {
+
+    <form #f="ngForm" (ngSubmit)="addBook(f)" class="add-form">
+
+      <input
+        name="title"
+        [(ngModel)]="newBookTitle"
+        placeholder="Book title"
+        required
+        class="input"
+      />
+
+      <select
+        name="author"
+        [(ngModel)]="newBookAuthorId"
+        required
+        class="input"
+      >
+        <option value="" disabled selected>Select Author</option>
+        @for (a of authors(); track a.author_id) {
+          <option [value]="a.author_id">{{ a.name }}</option>
+        }
+      </select>
+
+      <input type="file" (change)="handleImage($event)" accept="image/*" class="file" />
+
+      <button class="add-btn" [disabled]="f.invalid || loading()">
+        Add Book
+      </button>
+
+    </form>
+
+    <div class="books-list">
+      @for (b of books(); track b.book_id) {
+        <div class="book-card">
+
+          @if (b.image) {
+            <img class="thumb" [src]="b.image" />
+          } @else {
+            <div class="thumb placeholder">No image</div>
+          }
+
+          <div class="info">
+            <h3>{{ b.title }}</h3>
+            <p class="author">{{ b.author_name }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+  }
+
+</div>
