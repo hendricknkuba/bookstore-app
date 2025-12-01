@@ -106,18 +106,39 @@ export class BooksPageComponent {
     }
   }
 
-  handleImage(event: any) {
+  compressImage(file: File, maxWidth = 300): Promise<string> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const scaleFactor = maxWidth / img.width;
+
+          canvas.width = maxWidth;
+          canvas.height = img.height * scaleFactor;
+
+          const ctx = canvas.getContext('2d')!;
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7); 
+          resolve(compressedDataUrl);
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+
+  async handleImage(event: any) {
     const file = event.target.files[0];
     if (!file) {
       this.newBookImage = null;
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.newBookImage = reader.result as string;
-    };
-    reader.readAsDataURL(file);
+    this.newBookImage = await this.compressImage(file, 350);
   }
 
   async addBook(form: NgForm) {
@@ -153,11 +174,17 @@ export class BooksPageComponent {
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.message);
 
+      const authorIdNum = Number(this.newBookAuthorId);
+
+      const authorRecord = this.authors().find(
+        a => Number(a.author_id) === authorIdNum
+      );
+
       const newBook: Book = {
         ...data.data,
-        author_name:
-          this.authors().find((a) => a.author_id === this.newBookAuthorId)?.name ||
-          '',
+        title: this.newBookTitle,
+        author_id: authorIdNum,
+        author_name: authorRecord?.name ?? "Unknown",
         image: this.newBookImage,
       };
 
