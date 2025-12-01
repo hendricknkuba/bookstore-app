@@ -21,7 +21,7 @@ export class LoginPageComponent {
     await this.auth.login(this.model.email, this.model.password);
 
     if (this.auth.isAuthenticated()) {
-      this.router.navigate(['/books']); // destino pós-login
+      this.router.navigate(['/books']);
     }
   }
 }
