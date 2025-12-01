@@ -2,6 +2,27 @@
 
   <h1 class="title">Books</h1>
 
+  <!-- Search + Filters -->
+  <div class="filters-row">
+    <input
+      class="filter-input"
+      placeholder="Search by title or author..."
+      [ngModel]="searchTerm()"
+      (ngModelChange)="searchTerm.set($event)"
+    />
+
+    <select
+      class="filter-select"
+      [ngModel]="filterAuthorId()"
+      (ngModelChange)="filterAuthorId.set($event)"
+    >
+      <option value="all">All authors</option>
+      @for (a of authors(); track a.author_id) {
+        <option [value]="a.author_id">{{ a.name }}</option>
+      }
+    </select>
+  </div>
+
   @if (error()) {
     <div class="error-box">{{ error() }}</div>
   }
@@ -18,14 +39,14 @@
         [(ngModel)]="newBookTitle"
         placeholder="Book title"
         required
-        class="input"
+        class="input input-sm"
       />
 
       <select
         name="author"
         [(ngModel)]="newBookAuthorId"
         required
-        class="input"
+        class="input input-sm"
       >
         <option value="" disabled selected>Select Author</option>
         @for (a of authors(); track a.author_id) {
@@ -33,20 +54,27 @@
         }
       </select>
 
-      <input type="file" (change)="handleImage($event)" accept="image/*" />
+      <div class="file-wrapper">
+        <label class="file-label">
+          <span>Choose cover</span>
+          <input type="file" (change)="handleImage($event)" accept="image/*" />
+        </label>
+        @if (newBookImage) {
+          <span class="file-name">Image selected</span>
+        }
+      </div>
 
       <button class="add-btn" [disabled]="f.invalid || loading()">
         Add Book
       </button>
-
     </form>
 
     <!-- Books List -->
     <div class="books-list">
-      @for (b of books(); track b.book_id) {
+      @for (b of filteredBooks(); track b.book_id) {
         <div class="book-card" (click)="openModal(b)">
           @if (b.image) {
-            <img class="thumb" [src]="b.image">
+            <img class="thumb" [src]="b.image" />
           } @else {
             <div class="thumb placeholder">No image</div>
           }
@@ -60,7 +88,7 @@
     </div>
   }
 
-  <!-- Modal Premium -->
+  <!-- Modal -->
   <app-book-modal
     [open]="modalOpen()"
     [book]="bookSelected()"
@@ -69,4 +97,13 @@
     (save)="updateBook($event)"
     (delete)="deleteBook($event)"
   />
+
+  <!-- Toasts -->
+  <div class="toast-container">
+    @for (t of toasts(); track t.id) {
+      <div class="toast" [class.toast-success]="t.type === 'success'" [class.toast-error]="t.type === 'error'">
+        {{ t.message }}
+      </div>
+    }
+  </div>
 </div>
