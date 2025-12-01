@@ -10,6 +10,7 @@
     <p class="loading">Loading...</p>
   } @else {
 
+    <!-- Add Book Form -->
     <form #f="ngForm" (ngSubmit)="addBook(f)" class="add-form">
 
       <input
@@ -32,7 +33,7 @@
         }
       </select>
 
-      <input type="file" (change)="handleImage($event)" accept="image/*" class="file" />
+      <input type="file" (change)="handleImage($event)" accept="image/*" />
 
       <button class="add-btn" [disabled]="f.invalid || loading()">
         Add Book
@@ -40,12 +41,12 @@
 
     </form>
 
+    <!-- Books List -->
     <div class="books-list">
       @for (b of books(); track b.book_id) {
-        <div class="book-card">
-
+        <div class="book-card" (click)="openModal(b)">
           @if (b.image) {
-            <img class="thumb" [src]="b.image" />
+            <img class="thumb" [src]="b.image">
           } @else {
             <div class="thumb placeholder">No image</div>
           }
@@ -57,7 +58,15 @@
         </div>
       }
     </div>
-
   }
 
+  <!-- Modal Premium -->
+  <app-book-modal
+    [open]="modalOpen()"
+    [book]="bookSelected()"
+    [authors]="authors()"
+    (close)="modalOpen.set(false)"
+    (save)="updateBook($event)"
+    (delete)="deleteBook($event)"
+  />
 </div>
