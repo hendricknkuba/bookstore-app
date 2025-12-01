@@ -29,7 +29,7 @@ export class AuthService {
             const parsed = JSON.parse(savedUser);
             this.user.set(parsed);
             } catch (err) {
-            console.warn('auth_user corrompido no localStorage — limpando...');
+            console.warn('auth_user invalid in localStorage, clearing it.');
             localStorage.removeItem('auth_user');
             }
         }
@@ -49,7 +49,7 @@ export class AuthService {
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        throw new Error(data.message || 'Erro ao registrar');
+        throw new Error(data.message || 'Error registering');
       }
 
       // register → auto login
@@ -76,7 +76,7 @@ export class AuthService {
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        throw new Error(data.message || 'Erro ao fazer login');
+        throw new Error(data.message || 'Error logging in');
       }
 
       this.token.set(data.token);
@@ -100,7 +100,6 @@ export class AuthService {
     this.error.set(null);
   }
 
-  // Helper para APIs protegidas
   async authFetch(url: string, init: RequestInit = {}) {
     const t = this.token();
 
