@@ -1,0 +1,16 @@
+<nav class="nav">
+  <div class="left">
+    <span class="logo">Bookstore</span>
+
+    <a routerLink="/authors" class="nav-link">Authors</a>
+    <a routerLink="/books" class="nav-link">Books</a>
+  </div>
+
+  <div class="right">
+    <span class="user">{{ userEmail() }}</span>
+
+    <button (click)="logout()" class="logout-btn">
+      Logout
+    </button>
+  </div>
+</nav>
