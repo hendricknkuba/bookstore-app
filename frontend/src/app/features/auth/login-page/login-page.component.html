@@ -1,0 +1,49 @@
+<div class="auth-bg">
+  <div class="auth-card">
+
+    <h1 class="title">Welcome Back</h1>
+    <p class="subtitle">Sign in to access your premium bookstore.</p>
+
+    @if (auth.error()) {
+      <div class="error-box">{{ auth.error() }}</div>
+    }
+
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+
+      <div class="form-control">
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          [(ngModel)]="model.email"
+          required
+        />
+      </div>
+
+      <div class="form-control">
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="model.password"
+          required
+          minlength="6"
+        />
+      </div>
+
+      <button class="auth-btn" [disabled]="auth.loading() || f.invalid">
+        @if (auth.loading()) {
+          <span class="spinner"></span>
+          Signing in...
+        } @else {
+          Sign In
+        }
+      </button>
+    </form>
+
+    <p class="switch">Don't have an account?
+      <a routerLink="/register">Create one</a>
+    </p>
+
+  </div>
+</div>
