@@ -1,0 +1,50 @@
+@if (open) {
+  <div class="overlay" (click)="close.emit()"></div>
+
+  <div class="modal">
+    <h2>Edit Book</h2>
+
+    <form #f="ngForm" (ngSubmit)="submit()" novalidate>
+
+      <div class="field">
+        <label>Title</label>
+        <input
+          name="title"
+          [(ngModel)]="titleModel"
+          required
+          class="input"
+        />
+      </div>
+
+      <div class="field">
+        <label>Author</label>
+        <select
+          name="author"
+          [(ngModel)]="authorModel"
+          required
+          class="input"
+        >
+          @for (a of authors; track a.author_id) {
+            <option [value]="a.author_id">{{ a.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Image</label>
+
+        @if (imageModel) {
+          <img [src]="imageModel" class="preview" />
+        }
+
+        <input type="file" accept="image/*" (change)="handleImage($event)" />
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="save-btn">Save</button>
+        <button type="button" (click)="deleteBook()" class="delete-btn">Delete</button>
+        <button type="button" (click)="close.emit()" class="cancel-btn">Cancel</button>
+      </div>
+    </form>
+  </div>
+}
