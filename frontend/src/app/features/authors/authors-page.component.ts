@@ -19,7 +19,6 @@ export class AuthorsPageComponent {
   loading = signal(false);
   error = signal<string | null>(null);
 
-  // ⬇️ newAuthor agora é string normal → evita G5002
   newAuthorModel = '';
 
   constructor(private auth: AuthService) {
@@ -35,7 +34,7 @@ export class AuthorsPageComponent {
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        throw new Error(data.message || 'Erro ao carregar autores');
+        throw new Error(data.message || 'Error loading authors');
       }
 
       this.authors.set(data.data);
@@ -50,7 +49,7 @@ export class AuthorsPageComponent {
     if (form.invalid) return;
 
     if (this.authors().length >= 5) {
-      this.error.set("Limite máximo de 5 autores atingido");
+      this.error.set("Maximum limit of 5 authors reached");
       return;
     }
 
@@ -67,13 +66,11 @@ export class AuthorsPageComponent {
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        throw new Error(data.message || "Erro ao adicionar autor");
+        throw new Error(data.message || "Error adding author");
       }
 
-      // Atualiza lista
       this.authors.set([...this.authors(), data.data]);
 
-      // Limpa input
       this.newAuthorModel = '';
       form.resetForm();
 
