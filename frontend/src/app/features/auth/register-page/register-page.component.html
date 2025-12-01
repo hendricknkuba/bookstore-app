@@ -1,0 +1,50 @@
+<div class="auth-bg">
+  <div class="auth-card">
+
+    <h1 class="title">Create Account</h1>
+    <p class="subtitle">Access your premium bookstore experience.</p>
+
+    @if (auth.error()) {
+      <div class="error-box">{{ auth.error() }}</div>
+    }
+
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+
+      <div class="form-control">
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          required
+          [(ngModel)]="model.email"
+        />
+      </div>
+
+      <div class="form-control">
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          required
+          minlength="6"
+          [(ngModel)]="model.password"
+        />
+      </div>
+
+      <button class="auth-btn" [disabled]="auth.loading() || f.invalid">
+        @if (auth.loading()) {
+          Creating account...
+        } @else {
+          Create Account
+        }
+      </button>
+
+    </form>
+
+    <p class="switch">
+      Already have an account?
+      <a routerLink="/login">Sign in</a>
+    </p>
+
+  </div>
+</div>
