@@ -1,0 +1,37 @@
+<div class="page-container">
+
+  <h1 class="title">Authors</h1>
+
+  @if (error()) {
+    <div class="error-box">{{ error() }}</div>
+  }
+
+  @if (loading()) {
+    <p class="loading">Loading...</p>
+  } @else {
+
+    <form #f="ngForm" (ngSubmit)="addAuthor(f)" class="add-form">
+
+      <input
+        name="name"
+        [(ngModel)]="newAuthorModel"
+        required
+        placeholder="New Author"
+        class="input"
+      />
+
+      <button class="add-btn" [disabled]="f.invalid || loading()">
+        Add
+      </button>
+    </form>
+
+    <ul class="author-list">
+      @for (a of authors(); track a.author_id) {
+        <li class="author-item">
+          {{ a.name }}
+        </li>
+      }
+    </ul>
+
+  }
+</div>

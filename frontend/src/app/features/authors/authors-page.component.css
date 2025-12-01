@@ -1,0 +1,77 @@
+.page-container {
+  padding: 24px;
+  color: white;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.title {
+  font-size: 1.7rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.error-box {
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.35);
+  color: #fca5a5;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.loading {
+  color: #94a3b8;
+}
+
+.add-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(148,163,184,0.25);
+  background: rgba(30,41,59,0.5);
+  color: #fff;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.input:focus {
+  border-color: #6366f1;
+}
+
+.add-btn {
+  padding: 12px 22px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.add-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.author-list {
+  list-style: none;
+  padding: 0;
+}
+
+.author-item {
+  background: rgba(30,41,59,0.55);
+  border: 1px solid rgba(148,163,184,0.25);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.author-name {
+  font-size: 1rem;
+}
